@@ -10,7 +10,7 @@
 The latest version of pycron may be installed via `pip` as follows:
 
 ```
-pip install pycron
+pip install python-cron
 ```
 
 ## Usage

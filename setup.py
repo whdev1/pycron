@@ -1,11 +1,11 @@
 from distutils.core import setup
 import setuptools
 setup(
-  name = 'pycron',
+  name = 'python-cron',
   packages = ['pycron'],
   version = '1.0.0',
   license='MIT',
-  description = 'A simple Python library providing cron functionality via the use of a single decorator. ',
+  description = 'A simple Python library providing cron functionality via the use of a single decorator.',
   author = 'whdev1',
   author_email = 'whdev1@protonmail.com',
   url = 'https://github.com/whdev1/pycron',

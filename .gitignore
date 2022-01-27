@@ -1,5 +1,5 @@
 banner
 dist
 __pycache__
-pycron.egg-info
+python_cron.egg-info
 test.py

@@ -94,7 +94,7 @@ def start() -> None:
                 scheduled_function.last_run = datetime.utcnow().timestamp()
         
         # remove any threads that are done
-        for n in range(len(running_functions)):
+        for n in range(len(running_functions) - 1, -1, -1):
             if not running_functions[n].running:
                 del running_functions[n]
             
@@ -104,7 +104,7 @@ def start() -> None:
             time.sleep(1 - (end_time - start_time))
     
     # join all of the threads that we've created until they're done
-    for n in range(len(running_functions)):
+    for n in range(len(running_functions) - 1, -1, -1):
         if not running_functions[n].running:
             del running_functions[n]
         else:

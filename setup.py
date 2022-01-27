@@ -3,13 +3,13 @@ import setuptools
 setup(
   name = 'python-cron',
   packages = ['pycron'],
-  version = '1.0.0',
+  version = '1.0.1',
   license='MIT',
   description = 'A simple Python library providing cron functionality via the use of a single decorator.',
   author = 'whdev1',
   author_email = 'whdev1@protonmail.com',
   url = 'https://github.com/whdev1/pycron',
-  download_url = 'https://github.com/whdev1/pycron/archive/refs/tags/v1.0.0.tar.gz',
+  download_url = 'https://github.com/whdev1/pycron/archive/refs/tags/v1.0.1.tar.gz',
   keywords = ['pycron', 'cron', 'timed functions', 'automation'],
   install_requires=['croniter'],
   classifiers=[

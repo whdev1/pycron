@@ -5,7 +5,7 @@ setup(
   packages = ['pycron'],
   version = '1.0.0',
   license='MIT',
-  description = '',
+  description = 'A simple Python library providing cron functionality via the use of a single decorator. ',
   author = 'whdev1',
   author_email = 'whdev1@protonmail.com',
   url = 'https://github.com/whdev1/pycron',

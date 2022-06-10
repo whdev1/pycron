@@ -21,7 +21,11 @@ class FunctionThread(Thread):
     
     def run(self):
         self.running = True
-        asyncio.run(self.function(datetime.now()))
+        now = datetime.now()
+        if asyncio.iscoroutinefunction(self.function):
+            asyncio.run(self.function(now))
+        else:
+            self.function(now)
         self.running = False
 
 # define a boolean that represents whether or not the executor should

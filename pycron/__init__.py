@@ -1,7 +1,7 @@
 import asyncio
 from croniter import croniter
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import datetime, timezone
 from threading import Thread
 import time
 from types import FunctionType
@@ -46,13 +46,7 @@ scheduled_functions: List[ScheduledFunc] = []
 def _add_scheduled_func(function_def: FunctionType, cron_str: str) -> None:
     global scheduled_functions
 
-    scheduled_functions.append(
-        ScheduledFunc(
-            function_def,
-            cron_str,
-            datetime.utcnow().timestamp()
-        )
-    )
+    scheduled_functions.append(ScheduledFunc(function_def, cron_str, datetime.now(timezone.utc).timestamp()))
 
 def cron(cron_str: str) -> None:
     # we don't actually need to wrap the function, so just return it from
@@ -81,7 +75,7 @@ def start() -> None:
 
             # determine the next time the function should run as specified by its cron string
             next_run_timestamp: int = croniter(scheduled_function.cron_str, last_run).get_next(float)
-            
+
             # check if the function should run based on whether or not the current timestamp
             # meets or exceeds the next run timestamp
             current_timestamp: float = datetime.now().timestamp()
@@ -95,25 +89,23 @@ def start() -> None:
                 running_functions[-1].start()
 
                 # set the last run timestamp of this function to the current UTC time
-                scheduled_function.last_run = datetime.utcnow().timestamp()
-        
+                scheduled_function.last_run = datetime.now(timezone.utc).timestamp()
+
         # remove any threads that are done
         for n in range(len(running_functions) - 1, -1, -1):
             if not running_functions[n].running:
                 del running_functions[n]
-            
+
         # sleep so that this method only pulses every 1 second at the most
         end_time: float = time.time()
         if end_time - start_time < 1.0:
             time.sleep(1 - (end_time - start_time))
-    
+
     # join all of the threads that we've created until they're done
     for n in range(len(running_functions) - 1, -1, -1):
-        if not running_functions[n].running:
-            del running_functions[n]
-        else:
+        if running_functions[n].running:
             running_functions[n].join()
-            del running_functions[n]
+        del running_functions[n]
 
 def stop() -> None:
     global _running
